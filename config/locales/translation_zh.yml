@@ -1,0 +1,44 @@
+zh:
+  activerecord:
+    models:
+      user: "用户"
+      case: "案件"
+      content: "页面内容"
+      category: "菜单"
+      inquiry: "调查表"
+      kind: "类型"
+
+    attributes:
+      user:
+        login: 用户ID
+        name: 用户名
+        password: 密码
+        password_confirmation: 密码确认
+      case:
+        name: 项目名称
+        system_url: URL
+      category:
+        name: 菜单名字
+        url:  菜单链接
+      inquiry:
+        name: 姓名
+        email: 电子邮件地址
+        tel: 电话
+        province: 省/自治区/直辖市
+        city: 市/县
+        company_name: 公司
+        company_address: 公司地址
+        code: 邮政编码
+        memo: 留言给智科
+      kind:
+        name: 类型名字
+
+
+  ckeditor:
+    page_title: 'CKEditor 文件管理'
+    confirm_delete: '确定删除文件吗?'
+    buttons:
+      cancel: '取消'
+      upload: '上传'
+      delete: '删除'
+      next: '下一页'

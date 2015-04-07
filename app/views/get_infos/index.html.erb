@@ -1,0 +1,62 @@
+<div class="pgtitle" style="margin-top:20px">
+  <h2>信息管理</h2>
+</div>
+<hr><br />
+<!-- <div id="error_msg"></div> -->
+<%= form_for "", :method => "get" do |f| %>
+  <table width="60%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <th>管理状态</th>
+      <td><%= select_tag "status", options_for_select(GetInfo.select_type, params[:status].to_s),{:include_blank => true} %></td>
+      <th>首页显示</th>
+      <td><%= radio_button_tag "show_flag", "true", params[:show_flag]=="true" %><%=label_tag "show_flag_true", "显示" %><%= radio_button_tag "show_flag", "false", params[:show_flag].blank? ? true : params[:show_flag]=="false" %><%=label_tag "show_flag_false", "不显示" %></td>
+      <th>关键字</th>
+      <td><%= text_field_tag "key_word", params[:key_word] %></td>
+      <td><%= f.submit "检索" %></td>
+    </tr>
+  </table>
+<% end %>
+<br />
+<hr><br />
+<table class="tlist" width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <th width="50">No.</th>
+    <th>信息标题</th>
+    <th>信息链接</th>
+    <th>信息内容</th>
+    <th>管理状态</th>
+    <!-- <th width="100">操作</th> -->
+  </tr>
+  <% if @infos.present?%>
+    <% @infos.each_with_index do |ca, index|%>
+      <tr>
+        <td align="right"><%= index.to_i+1 %></td>
+        <td><%= ca.title.html_safe if ca.title.present? %></td>
+        <td><%= ca.url.html_safe if ca.content.present? %></td>
+        <td><%= ca.content.html_safe if ca.content.present? %></td>
+        <td><%= select_tag "status", options_for_select(GetInfo.select_type, ca.statue),:include_blank => false, :onchange => "change_statu(this)", :id => ca.id %></td>
+        <!-- <td align="center"><%= link_to '删除', get_info_path(ca), :method => :delete, :data => {:confirm => "确定要删除吗？"} %> -->
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr><td colspan="12" align="center">没有数据。</td></tr>
+  <% end %>
+</table>
+<div class="">
+  <%= paginate @infos %>
+</div>
+<script type="text/script">
+  function change_statu(this){
+    alert("dddddddddddd")
+    var num = Number(this.id)
+    var params = {par_id : num}
+    $.ajax("/get_infos/"+num, {
+        asynchronous:true,
+        type: 'put',
+        data: params,
+        onSuccess: function(transport){
+        }
+    });
+  }
+</script>
